@@ -1,0 +1,24 @@
+Changelog
+=========
+
+0.5
+---
+ - Create one HISTORY.txt [eleddy]
+ - Add z3c.autoinclude to so that zcml slugs are not needed [eleddy]
+
+
+0.2 > 0.3:
+
+- Removed the skins and layers
+
+- Made it catch all errors (even Zope ones) by patching SiteErrorLog
+
+- Allowed the override of configuration values by the use of site_configuration.py
+
+- Added in the ignores property
+
+- Made uninstalling remove configlet
+
+- Made install optional (just site_configuration.py will be enough)
+
+- Any errors sending to Arecibo are logged
