@@ -1,11 +1,15 @@
 Changelog
 =========
 
-0.5
----
- - Create one HISTORY.txt [eleddy]
+0.5 (Unreleased)
+----------------
+ - Merge HISTORY.txt's [eleddy]
  - Add z3c.autoinclude to so that zcml slugs are not needed [eleddy]
-
+ - Get smtp_from from portal properties [eleddy]
+ - Add app_name to configuration panel so that the urls for posting 
+   and email can be automatically generated [eleddy]
+ - Fix control panel icon [eleddy]
+ - GenerisSetup export [eleddy]
 
 0.2 > 0.3:
 

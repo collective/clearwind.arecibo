@@ -19,4 +19,24 @@
       description="Plone interface to Arecibo"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+      
+    <!-- exportimport -->
+    <genericsetup:importStep
+        name="arecibo"
+        title="Arecibo"
+        description="Import Arecibo Configuration"
+        handler=".exportimport.importAreciboSettings">
+        <depends name="componentregistry"/>
+    </genericsetup:importStep>
+
+    <genericsetup:exportStep
+        name="arecibo"
+        title="Arecibo"
+        description="Export Arecibo Configuration"
+        handler=".exportimport.exportAreciboSettings">
+    </genericsetup:exportStep>
+    
+     <adapter factory=".exportimport.AreciboNodeAdapter"/>
+     <adapter factory=".exportimport.AreciboXMLAdapter"/>
+
 </configure>
