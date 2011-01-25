@@ -10,30 +10,6 @@ from Products.GenericSetup.utils import PropertyManagerHelpers
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.CMFCore.utils import getToolByName
 from interfaces import IAreciboConfiguration
-
-
-class AreciboNodeAdapter(NodeAdapterBase, PropertyManagerHelpers):
-    """
-    Node importer and exporter for Arecibo
-    """
-
-    adapts(IAreciboConfiguration, ISetupEnviron)
-
-    def _exportNode(self):
-        node = self._getObjectNode('object')
-        node.appendChild(self._extractProperties())
-        return node
-
-    def _importNode(self, node):
-        purge = self.environ.shouldPurge()
-        if node.getAttribute('purge'):
-            purge = self._convertToBoolean(node.getAttribute('purge'))
-        if purge:
-            self._purgeProperties()
-
-        self._initProperties(node)
-
-    node = property(_exportNode, _importNode)
     
 
 class AreciboXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
@@ -63,19 +39,13 @@ class AreciboXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
 
     
     def _initSettings(self, node):
-        #import pdb; pdb.set_trace()
-        for child in node.childNodes:
+        config = self.context.getSiteManager().queryUtility(IAreciboConfiguration, name='Arecibo_config')
         
-            self.context.__setattr__(node)
-            
-            provider_id = str(child.getAttribute('name'))
-            if child.hasAttribute('remove'):
-                if provider_id in self.context.listActionProviders():
-                    self.context.deleteActionProvider(provider_id)
+        for child in node.childNodes:
+            if not child.childNodes or not len(child.childNodes):
                 continue
-
-            if provider_id not in self.context.listActionProviders():
-                self.context.addActionProvider(provider_id)
+            
+            config.__setattr__(child.nodeName, child.childNodes[0].data)
 
     
     def _importNode(self, node):
@@ -87,10 +57,10 @@ class AreciboXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
         
         
 def importAreciboSettings(context):
-    #import pdb; pdb.set_trace()
     qu = context.getSite().getSiteManager().queryUtility(IAreciboConfiguration, name='Arecibo_config')
-    if qu: 
+    if qu: # XXX: not really sure if things ever actually get in here...
         importObjects(qu, '', context)
+
 
 def exportAreciboSettings(context):
     qu = context.getSite().getSiteManager().queryUtility(IAreciboConfiguration, name='Arecibo_config')

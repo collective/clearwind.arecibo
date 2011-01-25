@@ -36,7 +36,6 @@
         handler=".exportimport.exportAreciboSettings">
     </genericsetup:exportStep>
     
-     <adapter factory=".exportimport.AreciboNodeAdapter"/>
      <adapter factory=".exportimport.AreciboXMLAdapter"/>
 
 </configure>
