@@ -22,8 +22,8 @@ class post:
         self._data = {}
         self.transport = "http"
         self.smtp_server = "localhost"
-        self.smtp_from = "noreply@clearwind.ca"
-        self.smtp_to = "eleddy@umich.edu"
+        self.smtp_from = "noreply@thisshouldbeoverwritten.com"
+        self.smtp_to = "noone@thisshouldbeoverwritten.com"
         self.posturl = "http://www.areciboapp.com/v/1/"
         self.set("server", gethostname())
         self.set("timestamp", formatdate())

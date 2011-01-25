@@ -65,7 +65,7 @@ def arecibo(context, **kw):
     
     error.posturl = "http://%s.appspot.com/v/1/"%cfg["app_name"]
     error.smtp_to = "django-%s@%s.appspotmail.com"%(cfg["account"], cfg["app_name"] )
-    error.smtp_from =  getSite().portal_properties.email_from_address
+    error.smtp_from = getSite().portal_properties.email_from_address
     
     mail_possible = not not context.MailHost.smtp_host
     if mail_possible and cfg["transport"] == "smtp":
