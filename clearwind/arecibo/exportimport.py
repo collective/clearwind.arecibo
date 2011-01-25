@@ -89,7 +89,8 @@ class AreciboXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
 def importAreciboSettings(context):
     #import pdb; pdb.set_trace()
     qu = context.getSite().getSiteManager().queryUtility(IAreciboConfiguration, name='Arecibo_config')
-    importObjects(qu, '', context)
+    if qu: 
+        importObjects(qu, '', context)
 
 def exportAreciboSettings(context):
     qu = context.getSite().getSiteManager().queryUtility(IAreciboConfiguration, name='Arecibo_config')
