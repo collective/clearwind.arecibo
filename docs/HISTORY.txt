@@ -9,7 +9,7 @@ Changelog
  - Add app_name to configuration panel so that the urls for posting 
    and email can be automatically generated [eleddy]
  - Fix control panel icon [eleddy]
- - GenerisSetup export [eleddy]
+ - GenerisSetup export/import [eleddy]
 
 0.2 > 0.3:
 
