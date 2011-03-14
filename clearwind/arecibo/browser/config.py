@@ -1,5 +1,4 @@
 from zope.formlib import form
-from Products.Five.formlib import formbase
 from plone.app.controlpanel.form import ControlPanelForm 
 from clearwind.arecibo.interfaces import IAreciboConfiguration
 
