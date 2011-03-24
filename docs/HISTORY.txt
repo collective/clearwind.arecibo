@@ -10,6 +10,9 @@ Changelog
    and email can be automatically generated [eleddy]
  - Fix control panel icon [eleddy]
  - GenerisSetup export/import [eleddy]
+ - Add configuration to ignore localhost errors [eleddy]
+ - Ignore errors based on the plone configuration of ignored errors [eleddy]
+ 
 
 0.2 > 0.3:
 

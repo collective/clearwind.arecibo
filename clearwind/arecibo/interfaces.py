@@ -1,6 +1,7 @@
 from zope.interface import Interface
 from zope.schema import Choice
 from zope.schema import TextLine
+from zope.schema import Bool
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
@@ -26,4 +27,9 @@ class IAreciboConfiguration(Interface):
                 to work, your mail host must be correctly configured."""),
                 default='http',
                 vocabulary=arecibo_choices_vocab,
+                required=False) 
+                
+  ignore_localhost = Bool(title=_(u'Ignore errors from localhost?'),
+                description=_(u"""This will usually be checked, unless you are debugging arecibo config itself."""),
+                default=True,
                 required=False) 

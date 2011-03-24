@@ -22,9 +22,9 @@ class AreciboXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
     
     def _extractSettings(self):
         fragment = self._doc.createDocumentFragment()
-        for setting in ['account_number', 'app_name', 'transport']:
+        for setting in ['account_number', 'app_name', 'transport', 'ignore_localhost']:
             child = self._doc.createElement(setting)
-            child.appendChild(self._doc.createTextNode(self.context.__getattribute__(setting)))
+            child.appendChild(self._doc.createTextNode(str(self.context.__getattribute__(setting))))
             fragment.appendChild(child)
 
         return fragment
@@ -44,8 +44,13 @@ class AreciboXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
         for child in node.childNodes:
             if not child.childNodes or not len(child.childNodes):
                 continue
-            
-            config.__setattr__(child.nodeName, child.childNodes[0].data)
+            if child.nodeName == 'ignore_localhost':
+                if child.childNodes[0].data == 'True':
+                    config.__setattr__(child.nodeName, True)
+                else:
+                    config.__setattr__(child.nodeName, False)
+            else:
+                config.__setattr__(child.nodeName, child.childNodes[0].data)
 
     
     def _importNode(self, node):

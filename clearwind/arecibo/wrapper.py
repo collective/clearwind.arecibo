@@ -48,6 +48,8 @@ def get(context):
         cfg["app_name"] = qu.app_name
     if qu.transport == "smtp":
         cfg["transport"] = "smtp"
+    cfg["ignore_localhost"] = qu.ignore_localhost
+    
     return cfg
 
 def arecibo(context, **kw):
@@ -70,10 +72,19 @@ def arecibo(context, **kw):
     mail_possible = not not context.MailHost.smtp_host
     if mail_possible and cfg["transport"] == "smtp":
         error.transport = "smtp"
-       
-    if kw.get("error_type") == 'NotFound':
+    
+    errorType = kw.get("error_type")
+    try:
+        ignoredExceptions = getSite().error_log._ignored_exceptions  
+        if errorType in ignoredExceptions:
+            log.debug('Error is in list of ignored exceptions, not forwarding to arecibo')
+            return
+    except: # don't want to kill error reporting if someone's config is amuck.
+        pass 
+        
+    if errorType == 'NotFound':
         status = 404
-    elif kw.get("error_type") == 'Unauthorized':
+    elif errorType == 'Unauthorized':
         status = 403
     else:
         status = 500
@@ -92,11 +103,17 @@ def arecibo(context, **kw):
     if kw.get("error_log_id"):
         error.set("uid", kw.get("error_log_id")) 
     
-    error.set("ip", req.get("X_FORWARDED_FOR", req.get('REMOTE_ADDR', '')))   
+    ip =  req.get("X_FORWARDED_FOR", req.get('REMOTE_ADDR', ''))
+    # don't forward errors from developer instances
+    if ip == "127.0.0.1" and cfg["ignore_localhost"]:
+        log.debug('Error is from localhost, not forwarding to arecibo')
+        return
+    
+    error.set("ip", ip)   
     error.set("type", kw.get("error_type"))
     error.set("status", status)
     error.set("request", "\n".join([ "%s: %s" % (k, req[k]) for k in headers if req.get(k)]))
-    
+
     if status != 404:
         # lets face it the 404 tb is not useful
         error.set("traceback", kw.get("error_tb"))
