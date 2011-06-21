@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5 (Unreleased)
+0.5 (2011-06-20)
 ----------------
  - Merge HISTORY.txt's [eleddy]
  - Add z3c.autoinclude to so that zcml slugs are not needed [eleddy]
@@ -15,7 +15,7 @@ Changelog
  
 
 0.2 > 0.3:
-
+----------
 - Removed the skins and layers
 
 - Made it catch all errors (even Zope ones) by patching SiteErrorLog

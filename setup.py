@@ -6,7 +6,7 @@ version = '0.5'
 setup(name='clearwind.arecibo',
       version=version,
       description="Connector from Plone to Arecibo",
-      long_description=open("README.txt").read() + "\n",
+      long_description=open("README.rst").read() + "\n" + open("docs/HISTORY.rst").read() + "\n",
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",

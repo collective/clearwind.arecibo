@@ -1,0 +1,7 @@
+include MANIFEST.in
+include *.rst
+include *.txt
+recursive-include clearwind *
+recursive-include docs *
+global-exclude *pyc .gitignore
+prune dis
