@@ -1,6 +1,6 @@
 import sys
 import os 
-from lib.arecibo import post
+from lib.arecibo import ThreadedHTTPPost
 from App.config import getConfiguration
 from AccessControl import getSecurityManager
 from ZODB.POSException import ConflictError
@@ -63,7 +63,7 @@ def arecibo(context, **kw):
         return
         
     req = context.REQUEST
-    error = post()
+    error = ThreadedHTTPPost()
     
     error.posturl = "http://%s.appspot.com/v/1/"%cfg["app_name"]
     error.smtp_to = "django-%s@%s.appspotmail.com"%(cfg["account"], cfg["app_name"] )

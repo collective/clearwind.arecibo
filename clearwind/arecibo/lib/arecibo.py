@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright ClearWind Consulting Ltd., 2008
 # Under the BSD License, see LICENSE.TXT
+import threading
 from httplib import HTTPConnection
 from urllib import urlencode
 from urlparse import urlparse
@@ -94,7 +95,41 @@ class post:
                 raise ValueError, "%s (%s)" % (reply.read(), reply.status)
         finally:                                            
             setdefaulttimeout(oldtimeout)
-            
+
+
+class PostThread(threading.Thread):
+    def __init__(self, url, headers, data, *args, **kwargs):
+        super(PostThread, self).__init__(*args, **kwargs)
+        self.url = url
+        self.headers = headers
+        self.data = data
+    
+    def run(self):
+        url = urlparse(self.url)
+        h = HTTPConnection(url[1])
+        oldtimeout = getdefaulttimeout()
+        try:
+            setdefaulttimeout(10)
+            h.request("POST", url[2], self.data, self.headers)
+            reply = h.getresponse()
+            if reply.status != 200:
+                raise ValueError, "%s (%s)" % (reply.read(), reply.status)
+        finally:
+            setdefaulttimeout(oldtimeout)
+            self.url = self.headers = self.data = None # remove refs for GC
+
+class ThreadedHTTPPost(post):
+    """post with http send deferred into thread to avoid blocking on send"""
+
+    def _send_http(self):
+        headers = {
+            "Content-type": 'application/x-www-form-urlencoded; charset="utf-8"',
+            "Accept": "text/plain"}
+        data = self._data_encoded()
+        postthread = PostThread(self.posturl, headers, data)
+        postthread.start()
+
+   
 if __name__=='__main__':
     new = post()
     new.set("account", "YOUR KEY HERE")
