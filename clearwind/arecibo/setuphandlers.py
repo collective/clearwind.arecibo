@@ -1,7 +1,6 @@
 from Products.CMFCore.DirectoryView import createDirectoryView
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import ISelectableConstrainTypes
-from Products.CMFEditions.setuphandlers import DEFAULT_POLICIES
 import string
 
 def setupSkins(portal):
