@@ -1,6 +1,15 @@
 Changelog
 =========
 
+0.7 (unreleased)
+----------------
+ - 
+
+0.6 (2011-09-22)
+----------------
+ - HTTP Post to throw-away threads [supton]
+ - remove incompatible 4.1 import [supton]
+
 0.5 (2011-06-20)
 ----------------
  - Merge HISTORY.txt's [eleddy]
