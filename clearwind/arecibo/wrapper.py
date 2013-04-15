@@ -5,7 +5,7 @@ from App.config import getConfiguration
 from AccessControl import getSecurityManager
 from ZODB.POSException import ConflictError
 from clearwind.arecibo.interfaces import IAreciboConfiguration
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 
 from logging import getLogger
 log = getLogger('Plone')
