@@ -1,5 +1,5 @@
 from Products.SiteErrorLog import SiteErrorLog
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 from wrapper import arecibo 
 import traceback
 

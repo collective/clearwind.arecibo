@@ -3,7 +3,7 @@ Changelog
 
 0.7 (unreleased)
 ----------------
- - 
+ - Update getSite location for Plone 4.3 compatibility. [esteele]
 
 0.6 (2011-09-22)
 ----------------
